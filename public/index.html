@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WO & MAN — Go'zallik Studiyasi & Barbershop | Студия Красоты</title>
+  <meta name="description" content="WO & MAN — Erkaklar va ayollar uchun yuqori toifadagi go'zallik studiyasi va barbershop. Onlayn navbatga yozilish, professional xizmatlar.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            wo: '#ff2d87',
+            woglow: 'rgba(255, 45, 135, 0.4)',
+            darkbg: '#0a0b0e',
+            darksurface: '#12141a',
+            darkborder: '#1f232e'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#090a0d] text-slate-100 selection:bg-[#ff2d87] selection:text-white antialiased">
+
+  <!-- TOP BARBER POLE ACCENT STRIP -->
+  <div class="barber-pole-line w-full"></div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 bg-[#090a0d]/90 backdrop-blur-md border-b border-zinc-800/80 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO: Replicating the banner exact design -->
+      <a href="#" class="flex flex-col items-start group">
+        <div class="flex items-baseline tracking-tighter">
+          <span class="brand-wo text-2xl sm:text-3xl font-black">WO</span>
+          <span class="brand-amp text-xl sm:text-2xl font-bold">&</span>
+          <span class="brand-man text-2xl sm:text-3xl font-black">MAN</span>
+        </div>
+        <div class="brand-sub tracking-[0.35em] text-[9px] sm:text-[10px] text-zinc-400 group-hover:text-zinc-200 transition">
+          СТУДИЯ КРАСОТЫ & BARBER
+        </div>
+      </a>
+
+      <!-- DESKTOP NAVIGATION -->
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-zinc-300">
+        <a href="#home" class="hover:text-[#ff2d87] transition" data-i18n="nav_home">Bosh sahifa</a>
+        <a href="#services" class="hover:text-[#ff2d87] transition" data-i18n="nav_services">Xizmatlar & Narxlar</a>
+        <a href="#masters" class="hover:text-[#ff2d87] transition" data-i18n="nav_masters">Bizning Ustalar</a>
+        <a href="#gallery" class="hover:text-[#ff2d87] transition" data-i18n="nav_gallery">Ishlarimiz</a>
+        <a href="#contacts" class="hover:text-[#ff2d87] transition" data-i18n="nav_contact">Bog'lanish</a>
+      </nav>
+
+      <!-- RIGHT ACTIONS: Language Switcher & Booking Button -->
+      <div class="hidden sm:flex items-center space-x-4">
+        <!-- Language Switcher -->
+        <div class="bg-zinc-900 border border-zinc-800 p-1 rounded-lg flex items-center">
+          <button id="lang-uz" class="px-3 py-1 text-xs font-bold rounded-md bg-[#ff2d87] text-white transition">UZ</button>
+          <button id="lang-ru" class="px-3 py-1 text-xs font-bold rounded-md text-zinc-400 hover:text-white transition">RU</button>
+        </div>
+
+        <!-- Direct CTA -->
+        <a href="#booking-section" class="glow-pink-btn px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+          <i data-lucide="scissors" class="w-4 h-4"></i>
+          <span data-i18n="nav_book">Navbatga yozilish</span>
+        </a>
+
+        <!-- Admin Shortcut -->
+        <a href="/admin" target="_blank" title="Admin Panel" class="text-zinc-500 hover:text-zinc-200 p-2 rounded-lg border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 transition">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <!-- MOBILE MENU BUTTON -->
+      <div class="flex items-center space-x-2 md:hidden">
+        <!-- Language Switcher (mobile) -->
+        <div class="bg-zinc-900 border border-zinc-800 p-0.5 rounded-lg flex items-center mr-1">
+          <button onclick="document.getElementById('lang-uz').click()" class="px-2 py-1 text-[10px] font-bold text-white">UZ</button>
+          <button onclick="document.getElementById('lang-ru').click()" class="px-2 py-1 text-[10px] font-bold text-zinc-400">RU</button>
+        </div>
+        <button id="mobile-menu-btn" class="p-2 text-zinc-400 hover:text-white bg-zinc-900 rounded-lg border border-zinc-800">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- MOBILE DROPDOWN -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0e1017] border-b border-zinc-800 px-6 py-6 space-y-4">
+      <a href="#home" class="block font-semibold text-zinc-300 hover:text-[#ff2d87]" data-i18n="nav_home">Bosh sahifa</a>
+      <a href="#services" class="block font-semibold text-zinc-300 hover:text-[#ff2d87]" data-i18n="nav_services">Xizmatlar & Narxlar</a>
+      <a href="#masters" class="block font-semibold text-zinc-300 hover:text-[#ff2d87]" data-i18n="nav_masters">Bizning Ustalar</a>
+      <a href="#gallery" class="block font-semibold text-zinc-300 hover:text-[#ff2d87]" data-i18n="nav_gallery">Ishlarimiz</a>
+      <a href="#contacts" class="block font-semibold text-zinc-300 hover:text-[#ff2d87]" data-i18n="nav_contact">Bog'lanish</a>
+      <div class="pt-2">
+        <a href="#booking-section" class="glow-pink-btn w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+          <i data-lucide="scissors" class="w-4 h-4"></i>
+          <span data-i18n="nav_book">Navbatga yozilish</span>
+        </a>
+      </div>
+      <div class="pt-2 text-center">
+        <a href="/admin" class="text-xs text-zinc-500 hover:text-zinc-300 flex items-center justify-center gap-1">
+          <i data-lucide="lock" class="w-3.5 h-3.5"></i> Admin Panel
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="home" class="relative pt-12 pb-24 overflow-hidden">
+    <!-- Ambient Neon Pink and White Glows -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#ff2d87]/15 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="absolute top-1/3 right-10 w-[400px] h-[300px] bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Top Announcement Badges -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700/80 text-xs font-semibold text-zinc-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>
+          <span data-i18n="hero_open_badge">Hozir ochiq</span> • 09:00 - 22:00
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-pink-950/40 border border-[#ff2d87]/40 text-xs font-bold text-pink-300">
+          <i data-lucide="award" class="w-4 h-4 text-[#ff2d87]"></i>
+          <span data-i18n="hero_badge">Go'zallik Studiyasi & Premium Barbershop</span>
+        </div>
+      </div>
+
+      <!-- MAIN BANNER REPLICA HEADLINE -->
+      <div class="text-center max-w-4xl mx-auto mb-8">
+        <div class="mb-4 inline-block">
+          <!-- Large 3D Signboard representation -->
+          <div class="banner-replica-box px-8 py-5 sm:px-14 sm:py-8 rounded-2xl inline-block">
+            <div class="flex items-baseline justify-center tracking-tight">
+              <span class="brand-wo text-5xl sm:text-7xl lg:text-8xl font-black">WO</span>
+              <span class="brand-amp text-4xl sm:text-6xl lg:text-7xl font-light mx-2 sm:mx-4">&</span>
+              <span class="brand-man text-5xl sm:text-7xl lg:text-8xl font-black">MAN</span>
+            </div>
+            <div class="mt-2 text-xs sm:text-base lg:text-lg tracking-[0.45em] font-extrabold text-slate-200 uppercase">
+              СТУДИЯ КРАСОТЫ
+            </div>
+          </div>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mt-6 leading-tight">
+          <span data-i18n="hero_title_part1">O'z uslubingizni</span>
+          <span class="text-[#ff2d87] underline decoration-[#ff2d87]/40 decoration-wavy" data-i18n="hero_title_accent">mukammallikka</span>
+          <span data-i18n="hero_title_part2">yetkazing</span>
+        </h1>
+
+        <p class="mt-6 text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed" data-i18n="hero_subtitle">
+          Erkaklar uchun klassik va zamonaviy sartaroshlik san'ati hamda ayollar uchun oliy toifadagi go'zallik xizmatlari bir maskanda.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#booking-section" class="glow-pink-btn w-full sm:w-auto px-8 py-4 rounded-xl font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2.5">
+            <i data-lucide="calendar-plus" class="w-5 h-5"></i>
+            <span data-i18n="hero_btn_book">Tezkor navbatga yozilish</span>
+          </a>
+          <a href="#services" class="glow-white-btn w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm tracking-wide flex items-center justify-center gap-2">
+            <i data-lucide="layers" class="w-4 h-4"></i>
+            <span data-i18n="hero_btn_services">Xizmatlar bilan tanishish</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Generated Luxury Studio Facade Showcase -->
+      <div class="mt-14 max-w-4xl mx-auto">
+        <div class="p-2 sm:p-3 rounded-3xl bg-zinc-900/90 border border-zinc-800 shadow-2xl relative group">
+          <div class="absolute -top-3.5 left-6 bg-gradient-to-r from-[#ff2d87] to-pink-600 text-white text-[11px] font-black uppercase px-4 py-1 rounded-full flex items-center gap-1.5 shadow-xl">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span data-i18n="banner_showcase_tag">WO & MAN Premium Studio</span>
+          </div>
+          <div class="overflow-hidden rounded-2xl relative aspect-[16/9] sm:aspect-[21/9] bg-zinc-950">
+            <img 
+              src="/images/studio-showcase.jpg" 
+              alt="WO & MAN Студия Красоты & Barbershop" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-6">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between w-full gap-2">
+                <div>
+                  <div class="text-sm sm:text-base font-black text-white flex items-center gap-2">
+                    <span class="text-[#ff2d87]">WO</span> & <span class="text-white">MAN</span>
+                    <span class="text-xs font-semibold text-zinc-300">— Студия Красоты & Barbershop</span>
+                  </div>
+                  <p class="text-xs text-zinc-400 mt-0.5" data-i18n="banner_section_sub">
+                    Ayollar («WO») va Erkaklar («MAN») uchun yagona mukammal maskan
+                  </p>
+                </div>
+                <a href="#booking-section" class="glow-pink-btn px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap self-start sm:self-auto">
+                  <span data-i18n="nav_book">Navbatga yozilish</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HIGHLIGHT STATS BAR -->
+  <section class="border-y border-zinc-800/80 bg-zinc-900/50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-3xl sm:text-4xl font-black text-white">8+</div>
+          <div class="text-xs text-zinc-400 mt-1 uppercase tracking-wider">Yillik Tajriba</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-black text-[#ff2d87]">1,500+</div>
+          <div class="text-xs text-zinc-400 mt-1 uppercase tracking-wider">Mamnun Mijozlar</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-black text-white">100%</div>
+          <div class="text-xs text-zinc-400 mt-1 uppercase tracking-wider">Steril & Xavfsiz</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-black text-amber-400 flex items-center justify-center gap-1">
+            <span>4.95</span>
+            <i data-lucide="star" class="w-6 h-6 fill-amber-400"></i>
+          </div>
+          <div class="text-xs text-zinc-400 mt-1 uppercase tracking-wider">Mijozlar Bahosi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES & PRICING SECTION -->
+  <section id="services" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-black text-[#ff2d87] uppercase tracking-widest block mb-2">PRICELIST</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight" data-i18n="services_title">
+          Xizmatlar va Narxlar
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-zinc-400" data-i18n="services_sub">
+          Eng so'nggi trendlar, yuqori sifatli mahsulotlar va individual yondashuv
+        </p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
+        <button 
+          data-category="all" 
+          class="service-category-btn px-5 py-2.5 rounded-xl text-xs font-bold bg-[#ff2d87] text-white shadow-lg transition">
+          <span data-i18n="tab_all">Barcha xizmatlar</span>
+        </button>
+        <button 
+          data-category="men" 
+          class="service-category-btn px-5 py-2.5 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 transition">
+          <span data-i18n="tab_men">Erkaklar (MAN) Barbershop</span>
+        </button>
+        <button 
+          data-category="women" 
+          class="service-category-btn px-5 py-2.5 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 transition">
+          <span data-i18n="tab_women">Ayollar (WO) Go'zallik</span>
+        </button>
+        <button 
+          data-category="unisex" 
+          class="service-category-btn px-5 py-2.5 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 transition">
+          <span data-i18n="tab_unisex">Spa & Parvarish</span>
+        </button>
+      </div>
+
+      <!-- Services Grid Container -->
+      <div id="services-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically by app.js -->
+        <div class="p-8 text-center text-zinc-500 col-span-full">Xizmatlar yuklanmoqda...</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MASTERS SECTION -->
+  <section id="masters" class="py-24 bg-zinc-950/60 border-t border-zinc-900 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-black text-[#ff2d87] uppercase tracking-widest block mb-2">OUR TEAM</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight" data-i18n="masters_title">
+          Bizning Mohir Ustalarimiz
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-zinc-400" data-i18n="masters_sub">
+          O'z ishining ustalari va ko'p yillik tajribaga ega professionallar
+        </p>
+      </div>
+
+      <!-- Masters Grid Container -->
+      <div id="masters-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-black text-[#ff2d87] uppercase tracking-widest block mb-2">ADVANTAGES</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight" data-i18n="why_title">
+          Nega aynan WO & MAN?
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-zinc-400" data-i18n="why_sub">
+          Biz shunchaki soch qirqmaymiz, biz sizning shaxsiy uslubingiz va qulayligingizni yaratamiz
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-card p-6 border-l-4 border-l-[#ff2d87]">
+          <div class="w-12 h-12 rounded-xl bg-pink-950/50 flex items-center justify-center text-[#ff2d87] mb-5">
+            <i data-lucide="shield-alert" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-black text-white mb-2" data-i18n="why_1_title">100% Steril & Xavfsiz</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed" data-i18n="why_1_desc">
+            Har bir asbob tibbiy avtoklavda maxsus sterilizatsiyadan o'tkaziladi. Bir martalik sochiq va yoqalar.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 border-l-4 border-l-white">
+          <div class="w-12 h-12 rounded-xl bg-zinc-800 flex items-center justify-center text-white mb-5">
+            <i data-lucide="sparkles" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-black text-white mb-2" data-i18n="why_2_title">Premium Kosmetika</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed" data-i18n="why_2_desc">
+            Italiya, Germaniya va AQSh brendlari (Wahl, Proraso, Lebel, L'Oreal Professionnel).
+          </p>
+        </div>
+
+        <div class="glass-card p-6 border-l-4 border-l-[#ff2d87]">
+          <div class="w-12 h-12 rounded-xl bg-pink-950/50 flex items-center justify-center text-[#ff2d87] mb-5">
+            <i data-lucide="coffee" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-black text-white mb-2" data-i18n="why_3_title">VIP Qulaylik & Lounge</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed" data-i18n="why_3_desc">
+            Mazzali kofe va choy, so'nggi rusumdagi PlayStation 5, yuqori tezlikdagi Wi-Fi va qulay muhit.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 border-l-4 border-l-white">
+          <div class="w-12 h-12 rounded-xl bg-zinc-800 flex items-center justify-center text-white mb-5">
+            <i data-lucide="gem" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-black text-white mb-2" data-i18n="why_4_title">Haqiqiy Professionallar</h3>
+          <p class="text-xs text-zinc-400 leading-relaxed" data-i18n="why_4_desc">
+            Xalqaro sertifikatlarga ega va xorijda malaka oshirgan yetakchi masterlar.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ONLINE BOOKING SECTION (Ariza Qoldirish) -->
+  <section id="booking-section" class="py-24 bg-gradient-to-b from-zinc-950 via-[#0d0f15] to-[#090a0d] border-y border-zinc-900 relative">
+    
+    <!-- Background Accents -->
+    <div class="absolute bottom-10 left-1/4 w-96 h-96 bg-[#ff2d87]/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-950/50 border border-[#ff2d87]/30 text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">
+          <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+          <span>TELEGRAM BOTGA ULANISH</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight" data-i18n="booking_title">
+          Onlayn Navbatga Yozilish
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-zinc-400" data-i18n="booking_sub">
+          Bir daqiqa ichida xohlagan ustangiz va qulay vaqtingizni band qiling
+        </p>
+      </div>
+
+      <!-- Booking Card Form -->
+      <div class="glass-card p-6 sm:p-10 border border-zinc-800 shadow-2xl relative">
+        
+        <form id="booking-form" class="space-y-6">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Full Name -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
+                <span data-i18n="booking_name_label">Ismingiz va Familiyangiz</span> *
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500">
+                  <i data-lucide="user" class="w-4 h-4"></i>
+                </span>
+                <input 
+                  type="text" 
+                  id="booking-name" 
+                  required 
+                  data-i18n-placeholder="booking_name_placeholder"
+                  placeholder="Masalan: Jasur Aliyev"
+                  class="w-full pl-10 pr-4 py-3 bg-zinc-900 border border-zinc-700/80 rounded-xl text-white text-sm focus:outline-none focus:border-[#ff2d87] focus:ring-1 focus:ring-[#ff2d87] transition"
+                />
+              </div>
+            </div>
+
+            <!-- Phone Number -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
+                <span data-i18n="booking_phone_label">Telefon raqamingiz</span> *
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500">
+                  <i data-lucide="phone" class="w-4 h-4"></i>
+                </span>
+                <input 
+                  type="tel" 
+                  id="booking-phone" 
+                  required 
+                  data-i18n-placeholder="booking_phone_placeholder"
+                  placeholder="+998 90 123 45 67"
+                  class="w-full pl-10 pr-4 py-3 bg-zinc-900 border border-zinc-700/80 rounded-xl text-white text-sm focus:outline-none focus:border-[#ff2d87] focus:ring-1 focus:ring-[#ff2d87] transition"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Selection -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
+              <span data-i18n="booking_service_label">Xizmat turini tanlang</span> *
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500">
+                <i data-lucide="scissors" class="w-4 h-4"></i>
+              </span>
+              <select 
+                id="booking-service" 
+                required 
+                class="w-full pl-10 pr-10 py-3 bg-zinc-900 border border-zinc-700/80 rounded-xl text-white text-sm focus:outline-none focus:border-[#ff2d87] focus:ring-1 focus:ring-[#ff2d87] transition appearance-none cursor-pointer">
+                <!-- Populated dynamically -->
+              </select>
+              <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-zinc-500">
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Master Selection -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
+              <span data-i18n="booking_master_label">Ustani tanlang</span>
+            </label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500">
+                <i data-lucide="user-check" class="w-4 h-4"></i>
+              </span>
+              <select 
+                id="booking-master" 
+                class="w-full pl-10 pr-10 py-3 bg-zinc-900 border border-zinc-700/80 rounded-xl text-white text-sm focus:outline-none focus:border-[#ff2d87] focus:ring-1 focus:ring-[#ff2d87] transition appearance-none cursor-pointer">
+                <!-- Populated dynamically -->
+              </select>
+              <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-zinc-500">
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Date & Time Picker -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Date -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
+                <span data-i18n="booking_date_label">Qulay kun</span> *
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500">
+                  <i data-lucide="calendar" class="w-4 h-4"></i>
+                </span>
+                <input 
+                  type="date" 
+                  id="booking-date" 
+                  required 
+                  class="w-full pl-10 pr-4 py-3 bg-zinc-900 border border-zinc-700/80 rounded-xl text-white text-sm focus:outline-none focus:border-[#ff2d87] focus:ring-1 focus:ring-[#ff2d87] transition"
+                />
+              </div>
+            </div>
+
+            <!-- Time Slots Chips -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
+                <span data-i18n="booking_time_label">Qulay vaqt</span> *
+              </label>
+              <div id="time-slots-container" class="flex flex-wrap gap-2 max-h-28 overflow-y-auto pr-1">
+                <!-- Generated by app.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
+              <span data-i18n="booking_notes_label">Qo'shimcha izoh (ixtiyoriy)</span>
+            </label>
+            <textarea 
+              id="booking-notes" 
+              rows="2" 
+              data-i18n-placeholder="booking_notes_placeholder"
+              placeholder="Masalan: Soch o'stiryapman, faqat yonini tozalash kerak..."
+              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700/80 rounded-xl text-white text-sm focus:outline-none focus:border-[#ff2d87] focus:ring-1 focus:ring-[#ff2d87] transition resize-none"></textarea>
+          </div>
+
+          <!-- Price & Telegram Alert info -->
+          <div class="pt-4 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <span class="text-xs uppercase tracking-wider text-zinc-400" data-i18n="booking_total_price">Taxminiy narx:</span>
+              <span id="booking-price-display" class="text-2xl font-black text-white">0 so'm</span>
+            </div>
+
+            <button 
+              type="submit" 
+              id="booking-submit-btn" 
+              class="glow-pink-btn w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+              <span data-i18n="booking_submit_btn">Arizani tasdiqlash va yuborish</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <div class="text-center text-[11px] text-zinc-500 flex items-center justify-center gap-1.5" data-i18n="booking_notice">
+            ⚡️ Arizangiz qabul qilingach, administratorimiz va Telegram botimizga zudlik bilan bildirishnoma boradi.
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section id="gallery" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-black text-[#ff2d87] uppercase tracking-widest block mb-2">PORTFOLIO</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight" data-i18n="gallery_title">
+          Bizning Ishlarimiz
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-zinc-400" data-i18n="gallery_sub">
+          Biz yaratgan turmaklar va studiyamizning jonli muhiti
+        </p>
+      </div>
+
+      <div id="gallery-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <!-- Rendered by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- REVIEWS SECTION -->
+  <section class="py-24 bg-zinc-950/60 border-t border-zinc-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-black text-[#ff2d87] uppercase tracking-widest block mb-2">TESTIMONIALS</span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight" data-i18n="reviews_title">
+          Mijozlarimiz Nima Deydi?
+        </h2>
+        <p class="mt-3 text-sm sm:text-base text-zinc-400" data-i18n="reviews_sub">
+          Har bir mijozimizning mamnunligi biz uchun eng katta yutuqdir
+        </p>
+      </div>
+
+      <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Rendered by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACTS & LOCATION SECTION -->
+  <section id="contacts" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <div>
+          <span class="text-xs font-black text-[#ff2d87] uppercase tracking-widest block mb-2">LOCATION</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4" data-i18n="contact_title">
+            Manzil va Bog'lanish
+          </h2>
+          <p class="text-sm text-zinc-400 mb-8" data-i18n="contact_sub">
+            Sizni kutib qolamiz! Oldindan qo'ng'iroq qilish yoki tashrif buyurish mumkin.
+          </p>
+
+          <div class="space-y-6">
+            
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#ff2d87] shrink-0">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1" data-i18n="contact_address_label">Manzilimiz:</h4>
+                <p id="display-address" class="text-sm font-semibold text-white">
+                  Toshkent shahri, Yunusobod tumani, Amir Temur shoh ko'chasi 108
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#ff2d87] shrink-0">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1" data-i18n="contact_hours_label">Ish vaqti:</h4>
+                <p id="display-hours" class="text-sm font-semibold text-white">
+                  Dushanba - Yakshanba: 09:00 - 22:00
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-[#ff2d87] shrink-0">
+                <i data-lucide="phone-call" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1" data-i18n="contact_phone_label">Aloqa telefoni:</h4>
+                <div class="flex flex-wrap gap-3 mt-1">
+                  <a href="tel:+998901234567" class="text-sm font-bold text-white hover:text-[#ff2d87] transition">
+                    +998 (90) 123-45-67
+                  </a>
+                  <a href="tel:+998977654321" class="text-sm font-bold text-white hover:text-[#ff2d87] transition">
+                    +998 (97) 765-43-21
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Quick Social & Action Buttons -->
+          <div class="mt-8 pt-6 border-t border-zinc-800 flex flex-wrap items-center gap-3">
+            <a href="tel:+998901234567" class="glow-pink-btn px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2">
+              <i data-lucide="phone" class="w-4 h-4"></i>
+              <span data-i18n="contact_call_btn">Qo'ng'iroq qilish</span>
+            </a>
+            <a href="https://t.me" target="_blank" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#229ed9] hover:bg-[#1e8bc2] text-white flex items-center gap-2 transition">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span data-i18n="contact_telegram_btn">Telegram kanalimiz</span>
+            </a>
+            <a href="https://instagram.com" target="_blank" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:opacity-90 text-white flex items-center gap-2 transition">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+              <span data-i18n="contact_instagram_btn">Instagram</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Interactive Map Mockup / Container -->
+        <div class="rounded-2xl overflow-hidden border border-zinc-800 h-96 bg-zinc-900 relative shadow-2xl">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.8!2d69.28!3d41.33!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDE5JzQ4LjAiTiA2OcKwMTYnNDguMCJF!5e0!3m2!1sen!2suz!4v1600000000000!5m2!1sen!2suz" 
+            class="w-full h-full border-0 filter grayscale invert contrast-125" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <div class="absolute bottom-4 left-4 right-4 bg-black/85 backdrop-blur-md p-3.5 rounded-xl border border-zinc-700 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="w-3 h-3 rounded-full bg-[#ff2d87]"></span>
+              <span class="text-xs font-black text-white">WO & MAN Студия Красоты</span>
+            </div>
+            <a href="https://maps.google.com" target="_blank" class="text-[11px] font-bold text-[#ff2d87] hover:underline flex items-center gap-1">
+              <span>Xaritada ochish</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-black border-t border-zinc-900 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 pb-12 border-b border-zinc-900">
+        
+        <!-- Logo -->
+        <div class="flex flex-col items-center md:items-start">
+          <div class="flex items-baseline tracking-tighter">
+            <span class="brand-wo text-3xl font-black">WO</span>
+            <span class="brand-amp text-2xl font-bold">&</span>
+            <span class="brand-man text-3xl font-black">MAN</span>
+          </div>
+          <div class="brand-sub tracking-[0.35em] text-[10px] text-zinc-400 mt-0.5">
+            СТУДИЯ КРАСОТЫ & BARBERSHOP
+          </div>
+          <p class="text-xs text-zinc-500 mt-2 max-w-xs text-center md:text-left" data-i18n="footer_tagline">
+            Erkaklar va ayollar uchun mukammal uslub maskani.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div class="flex flex-wrap justify-center gap-6 text-xs font-semibold text-zinc-400">
+          <a href="#home" class="hover:text-white transition" data-i18n="nav_home">Bosh sahifa</a>
+          <a href="#services" class="hover:text-white transition" data-i18n="nav_services">Xizmatlar</a>
+          <a href="#masters" class="hover:text-white transition" data-i18n="nav_masters">Ustalar</a>
+          <a href="#booking-section" class="hover:text-white transition" data-i18n="nav_book">Navbatga yozilish</a>
+          <a href="/admin" class="hover:text-[#ff2d87] transition flex items-center gap-1" data-i18n="nav_admin">
+            <i data-lucide="lock" class="w-3.5 h-3.5"></i> Admin panel
+          </a>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-600 gap-4">
+        <div>
+          © 2026 <span class="font-bold text-zinc-400">WO & MAN</span>. <span data-i18n="footer_rights">Barcha huquqlar himoyalangan.</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span>Dizayn ilhomlantiruvchisi:</span>
+          <span class="text-pink-400 font-bold">WO & MAN Signboard</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- BOOKING SUCCESS MODAL -->
+  <div id="success-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+    <div class="bg-[#12141c] border border-zinc-800 rounded-2xl max-w-md w-full p-6 sm:p-8 text-center relative shadow-2xl">
+      
+      <div class="w-16 h-16 rounded-full bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="check" class="w-8 h-8"></i>
+      </div>
+
+      <h3 class="text-2xl font-black text-white mb-2" data-i18n="modal_success_title">Arizangiz qabul qilindi!</h3>
+      <p class="text-xs text-zinc-400 mb-6" data-i18n="modal_success_desc">
+        Hurmatli mijoz, sizning arizangiz muvaffaqiyatli ro'yxatga olindi. Ma'lumotlar studiyamizga va Telegram botga yuborildi.
+      </p>
+
+      <!-- Booking details card -->
+      <div class="bg-zinc-900/80 rounded-xl p-4 border border-zinc-800 text-left space-y-2 mb-6 text-xs">
+        <div class="flex justify-between">
+          <span class="text-zinc-500 font-medium" data-i18n="modal_booking_id">Ariza raqami:</span>
+          <span id="modal-res-id" class="font-bold text-pink-400">#BK-0000</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-500 font-medium">Mijoz:</span>
+          <span id="modal-res-name" class="font-bold text-white">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-500 font-medium">Telefon:</span>
+          <span id="modal-res-phone" class="font-bold text-white">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-500 font-medium" data-i18n="modal_service">Xizmat:</span>
+          <span id="modal-res-service" class="font-bold text-white">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-500 font-medium" data-i18n="modal_master">Usta:</span>
+          <span id="modal-res-master" class="font-bold text-white">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-500 font-medium" data-i18n="modal_datetime">Sana & Vaqt:</span>
+          <span id="modal-res-datetime" class="font-bold text-white">-</span>
+        </div>
+        <div class="flex justify-between pt-2 border-t border-zinc-800">
+          <span class="text-zinc-400 font-bold" data-i18n="modal_total">Narx:</span>
+          <span id="modal-res-price" class="font-black text-pink-400 text-sm">0 so'm</span>
+        </div>
+      </div>
+
+      <!-- Telegram status badge -->
+      <div class="mb-6 flex justify-center">
+        <div id="modal-tg-status" class="text-[11px] text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-3 py-1 rounded-full flex items-center gap-1.5">
+          <i data-lucide="check-check" class="w-3.5 h-3.5"></i> Telegram botga xabar bordi!
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <button 
+          id="modal-close-btn" 
+          class="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl transition">
+          <span data-i18n="modal_close_btn">Tushunarli</span>
+        </button>
+        <a 
+          href="https://t.me" 
+          target="_blank" 
+          class="flex-1 py-3 bg-[#229ed9] hover:bg-[#1e8bc2] text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-1.5">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+          <span data-i18n="modal_tg_btn">Telegram</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/translations.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    // Initialize Lucide icons on load
+    window.addEventListener('load', () => {
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
