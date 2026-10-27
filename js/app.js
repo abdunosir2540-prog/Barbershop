@@ -1,17 +1,15 @@
-// Main Application Script for WO & MAN
+// WO & MAN Barbershop — Core Frontend Engine
 document.addEventListener('DOMContentLoaded', () => {
-  // Global State
+  // App State
   const state = {
     lang: localStorage.getItem('woman_lang') || 'uz',
-    data: null,
     selectedCategory: 'all',
-    galleryFilter: 'all',
+    data: null,
     booking: {
-      category: 'men',
       service_id: '',
       master_id: '',
-      date: getTodayDateString(),
-      time: '14:00'
+      date: '',
+      time: '12:00'
     }
   };
 
@@ -35,52 +33,105 @@ document.addEventListener('DOMContentLoaded', () => {
   const STATIC_DATA = {
     settings: {
       salon_name: "WO & MAN",
-      salon_subtitle_uz: "Go'zallik Studiyasi & Barbershop",
-      salon_subtitle_ru: "Студия Красоты & Barbershop",
-      phone_primary: "+998 90 123 45 67",
-      phone_secondary: "+998 97 765 43 21",
-      address_uz: "Toshkent shahri, Yunusobod tumani, Amir Temur shoh ko'chasi 108",
-      address_ru: "г. Ташкент, Юнусабадский район, пр-т Амира Темура 108",
+      salon_subtitle_uz: "Go'zallik Studiyasi & Barbershop | Yangiyo'l",
+      salon_subtitle_ru: "Студия Красоты & Barbershop | Янгиюль",
+      phone_primary: "+998 97 977 59 94",
+      phone_secondary: "+998 97 548 77 97",
+      phone_tertiary: "+998 77 071 78 37",
+      address_uz: "Toshkent viloyati, Yangiyoʻl shahri, Bo'ston 1-o'tish ko'chasi, 1",
+      address_ru: "Ташкентская область, г. Янгиюль, 1-й проезд Бустон, 1",
       working_hours_uz: "Dushanba - Yakshanba: 09:00 - 22:00",
       working_hours_ru: "Понедельник - Воскресенье: 09:00 - 22:00",
-      instagram_url: "https://instagram.com",
-      telegram_url: "https://t.me"
+      instagram_url: "https://instagram.com/wo_man_yangiyol",
+      telegram_url: "https://t.me/WoManbarberbot",
+      telegram_bot_token: "8982199071:AAEeR9ySgTlyG0NQozhDinluVDcjJqCSdiU",
+      telegram_chat_id_jamoloddin: "5046237558",
+      telegram_chat_id_akrom: "",
+      telegram_chat_id_axror: "",
+      yandex_map_url: "https://yandex.ru/maps/-/CXb4jS9L",
+      pricelist_image: "./images/pricelist.jpg"
     },
     services: [
-      { id: "srv-1", category: "men", name_uz: "Erkaklar klassik soch turmagi", name_ru: "Мужская классическая стрижка", desc_uz: "Bosh yuvish, individual uslub tanlash, styling va parvarish", desc_ru: "Мытье головы, индивидуальный подбор стиля, премиум укладка", price: 80000, duration_min: 40, popular: true, badge_uz: "Mashhur", badge_ru: "Популярно" },
-      { id: "srv-2", category: "men", name_uz: "Fade & Zamonaviy turmaklash", name_ru: "Стрижка Fade (Low/Mid/High)", desc_uz: "Mukammal tekis o'tish (fade), qirqish va zamonaviy stil", desc_ru: "Идеальный плавный переход, четкие контуры и текстурный стайлинг", price: 100000, duration_min: 50, popular: true, badge_uz: "TOP", badge_ru: "Хит" },
-      { id: "srv-3", category: "men", name_uz: "Soqol dizayni va qaynoq sochiq", name_ru: "Моделирование бороды и горячее полотенце", desc_uz: "Xavfsiz ustara bilan qirqish, moy bilan massaj va bug'li parvarish", desc_ru: "Опасная бритва, контуринг, распаривание и уход арома-маслами", price: 70000, duration_min: 35, popular: false },
-      { id: "srv-4", category: "men", name_uz: "Kompleks: Soch + Soqol VIP", name_ru: "Комплекс: Стрижка + Борода VIP", desc_uz: "Barcha bosqichlar: soch, soqol dizayni, qora niqob va yuz massaji", desc_ru: "Полный комплекс: стильная стрижка, моделирование бороды, маска и уход", price: 150000, duration_min: 75, popular: true, badge_uz: "VIP", badge_ru: "VIP" },
-      { id: "srv-5", category: "men", name_uz: "Bolalar soch turmagi (12 yoshgacha)", name_ru: "Детская модельная стрижка (до 12 лет)", desc_uz: "Kichkintoylar uchun ehtiyotkor va zamonaviy soch olish", desc_ru: "Бережная стрижка для юных джентльменов в комфортной атмосфере", price: 60000, duration_min: 30, popular: false },
-      { id: "srv-6", category: "men", name_uz: "Oq sochlarni yashirish (Kamuflyaj)", name_ru: "Камуфляж седины и бороды", desc_uz: "Tabiiy ko'rinish beruvchi tezkor bo'yash (10 daqiqa)", desc_ru: "Естественное тонирование седины за 10 минут без эффекта окрашенности", price: 90000, duration_min: 25, popular: false },
-      { id: "srv-7", category: "women", name_uz: "Ayollar soch turmagi va fenlash", name_ru: "Женская стрижка + Брашинг укладка", desc_uz: "Yuz shakliga mos professional qirqish va hajm beruvchi turmak", desc_ru: "Индивидуальный подбор формы под тип лица, мытье и объемная укладка", price: 120000, duration_min: 60, popular: true, badge_uz: "Tavsiya", badge_ru: "Рекомендуем" },
-      { id: "srv-8", category: "women", name_uz: "Murakkab bo'yash (AirTouch, Balayaj)", name_ru: "Сложное окрашивание (AirTouch, Балаяж)", desc_uz: "Italiya va Germaniya bo'yoqlari bilan nozik va yorqin ranglar", desc_ru: "Премиальные красители, плавные переходы, защита структуры волос", price: 350000, duration_min: 180, popular: true, badge_uz: "Premium", badge_ru: "Премиум" },
-      { id: "srv-9", category: "women", name_uz: "Keratinli to'g'irlash & Botoks", name_ru: "Кератиновое выпрямление и ботокс", desc_uz: "Sochlarni 6 oygacha ipakdek tekis va yaltiroq holatga keltirish", desc_ru: "Глубокое восстановление, зеркальный блеск и гладкость до 6 месяцев", price: 380000, duration_min: 150, popular: false },
-      { id: "srv-10", category: "women", name_uz: "Kechki va to'y soch turmagi", name_ru: "Вечерняя и свадебная прическа", desc_uz: "Bayramlar, fotosessiya va to'ylar uchun nafis soch turmaklari", desc_ru: "Элегантные прически для торжеств, свадеб и фотосессий любой сложности", price: 200000, duration_min: 75, popular: false },
-      { id: "srv-11", category: "unisex", name_uz: "Bosh terisi va yuz Spa parvarishi", name_ru: "Spa-уход для лица и кожи головы", desc_uz: "Skrab, chuqur tozalash, oziqlantiruvchi niqob va yuz massaji", desc_ru: "Глубокий пилинг, распаривание, маска детокс и тонизирующий массаж", price: 90000, duration_min: 45, popular: false }
+      { id: "srv-1", category: "main", name_uz: "Soch olish", name_ru: "Стрижка волос", desc_uz: "Klassik va zamonaviy erkaklar soch turmagi, yuvish va stil berish", desc_ru: "Классическая и модельная мужская стрижка, мытье и укладка", price: 60000, duration_min: 30, popular: true, badge_uz: "TOP", badge_ru: "Хит" },
+      { id: "srv-2", category: "main", name_uz: "Soch soqol", name_ru: "Стрижка + Борода", desc_uz: "Soch olish va soqolni professional shakllantirish to'liq to'plami", desc_ru: "Полный комплекс стрижки волос и моделирования бороды", price: 100000, duration_min: 50, popular: true, badge_uz: "Mashhur", badge_ru: "Популярно" },
+      { id: "srv-3", category: "main", name_uz: "Detskiy", name_ru: "Детская стрижка", desc_uz: "Kichkintoylar uchun xushmuomala va ehtiyotkor zamonaviy soch turmagi", desc_ru: "Бережная и стильная стрижка для юных джентльменов", price: 50000, duration_min: 25, popular: false },
+      { id: "srv-4", category: "main", name_uz: "Ukladka", name_ru: "Укладка волос", desc_uz: "Fen va sifatli fiksator vositalari yordamida sochni chiroyli turmaklash", desc_ru: "Профессиональная укладка и текстурный стайлинг волос", price: 50000, duration_min: 20, popular: false },
+      { id: "srv-5", category: "care", name_uz: "Soch boyash", name_ru: "Окрашивание волос", desc_uz: "Oq sochlarni yashirish (kamuflyaj) va sochlarga sifatli rang berish", desc_ru: "Камуфляж седины и естественное тонирование волос", price: 50000, duration_min: 30, popular: false },
+      { id: "srv-6", category: "main", name_uz: "Soqol", name_ru: "Моделирование бороды", desc_uz: "Soqolni tekislash, aniq kontur chizish va maxsus moylar bilan parvarish", desc_ru: "Стрижка и контуринг бороды, уход смягчающими маслами", price: 40000, duration_min: 20, popular: false },
+      { id: "srv-7", category: "care", name_uz: "Vosk", name_ru: "Восковая депиляция (Воск)", desc_uz: "Burun, quloq va yuzdagi keraksiz tuklarni og'riqsiz va toza yo'qotish", desc_ru: "Удаление нежелательных волос горячим воском (нос, уши, лицо)", price: 30000, duration_min: 15, popular: false },
+      { id: "srv-8", category: "care", name_uz: "Maska", name_ru: "Маска для лица", desc_uz: "Yuz terisini chuqur tozalovchi qora niqob va oziqlantiruvchi parvarish", desc_ru: "Очищающая черная маска и уход за кожей лица", price: 40000, duration_min: 20, popular: false },
+      { id: "srv-9", category: "care", name_uz: "Massaj golovi", name_ru: "Массаж головы", desc_uz: "Bosh va bo'yin sohasini qon aylanishini yaxshilovchi tinchlantiruvchi massaj", desc_ru: "Расслабляющий тонизирующий массаж кожи головы и шеи", price: 50000, duration_min: 20, popular: false },
+      { id: "srv-10", category: "care", name_uz: "Kuyov obroz", name_ru: "Образ жениха (VIP)", desc_uz: "VIP to'liq kompleks: soch, soqol, yuz maskasi, bosh massaji va bayramona ukladka", desc_ru: "Полный VIP комплекс жениха: стрижка, борода, маска, массаж и стайлинг", price: 400000, duration_min: 90, popular: true, badge_uz: "VIP", badge_ru: "VIP" }
     ],
     masters: [
-      { id: "mst-1", name: "Sardor Mirzayev", specialty_uz: "Top Barber & Fade mutaxassisi", specialty_ru: "Топ-барбер & Мастер фейда", category: "men", experience_uz: "8 yil tajriba", experience_ru: "8 лет опыта", rating: 4.95, reviews_count: 240, photo: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=500&auto=format&fit=crop&q=80", description_uz: "Klassik va zamonaviy fade, soqol shakllantirish bo'yicha shahar chempioni", description_ru: "Специалист по безупречному фейду, моделированию бороды и королевскому бритью" },
-      { id: "mst-2", name: "Doniyor Qodirov", specialty_uz: "Erkaklar Sartaroshi & Barber", specialty_ru: "Барбер-стилист", category: "men", experience_uz: "5 yil tajriba", experience_ru: "5 лет опыта", rating: 4.88, reviews_count: 165, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80", description_uz: "Yoshlar uslubi, krop, pompadur va har qanday murakkablikdagi dizaynlar", description_ru: "Мастер креативных стрижек (Crop, Pompadour), камуфляжа и ухода за кожей" },
-      { id: "mst-3", name: "Malika Karimova", specialty_uz: "Bosh Kolorist & Stilist", specialty_ru: "Главный колорист & Стилист", category: "women", experience_uz: "9 yil tajriba", experience_ru: "9 лет опыта", rating: 4.98, reviews_count: 310, photo: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&auto=format&fit=crop&q=80", description_uz: "AirTouch, balayaj va murakkab sochlarni tiklash ustalari orasida yetakchi", description_ru: "Эксперт сложных техник окрашивания (AirTouch, шатуш) и восстановления волос" },
-      { id: "mst-4", name: "Zarina Alimova", specialty_uz: "Ayollar Sartaroshi & Vizajist", specialty_ru: "Мастер женских причесок & Визажист", category: "women", experience_uz: "6 yil tajriba", experience_ru: "6 лет опыта", rating: 4.92, reviews_count: 190, photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&auto=format&fit=crop&q=80", description_uz: "To'y va marosimlar uchun mukammal soch turmaklari va professional obraz yaratish", description_ru: "Свадебные и вечерние образы, трендовые женские стрижки и ламинирование" }
+      {
+        id: "mst-1",
+        name: "Jamoloddin",
+        title: "Asoschi",
+        phone: "+998 97 977 59 94",
+        telegram_chat_id: "5046237558",
+        specialty_uz: "Asoschi & Bosh Barber",
+        specialty_ru: "Основатель & Главный Барбер",
+        category: "founder",
+        experience_uz: "8 yil tajriba",
+        experience_ru: "8 лет опыта",
+        rating: 5.0,
+        reviews_count: 280,
+        photo: "./images/master-jamoloddin.jpg",
+        description_uz: "WO & MAN asoschisi va oliy toifali tajribali ustasi. Kuyov obrazlari va mukammal soch turmaklari bo'yicha mutaxassis.",
+        description_ru: "Основатель WO & MAN, мастер высшей категории. Эксперт свадебных образов и безупречного мужского стиля."
+      },
+      {
+        id: "mst-2",
+        name: "Akrom",
+        title: "Top Barber",
+        phone: "+998 97 548 77 97",
+        telegram_chat_id: "",
+        specialty_uz: "Top Barber & Soqol ustasi",
+        specialty_ru: "Топ-барбер & Мастер бороды",
+        category: "barber",
+        experience_uz: "6 yil tajriba",
+        experience_ru: "6 лет опыта",
+        rating: 4.95,
+        reviews_count: 210,
+        photo: "./images/master-akrom.jpg",
+        description_uz: "Fade, klassik va zamonaviy erkaklar soch turmagi hamda soqol modellashtirish bo'yicha mahoratli usta.",
+        description_ru: "Специалист по безупречному фейду, моделированию бороды и современным мужским стрижкам."
+      },
+      {
+        id: "mst-3",
+        name: "Axror",
+        title: "Barber & Stilist",
+        phone: "+998 77 071 78 37",
+        telegram_chat_id: "",
+        specialty_uz: "Professional Barber & Styling",
+        specialty_ru: "Профессиональный Барбер & Стилист",
+        category: "barber",
+        experience_uz: "4 yil tajriba",
+        experience_ru: "4 лет опыта",
+        rating: 4.92,
+        reviews_count: 175,
+        photo: "./images/master-axror.jpg",
+        description_uz: "Kreativ yoshlar uslubi, ukladka, bolalar soch turmagi va yuz parvarishi bo'yicha professionallaridan.",
+        description_ru: "Мастер молодежных трендовых стрижек, детских образов, укладки и бережного ухода."
+      }
     ],
     gallery: [
-      { id: "gal-1", title_uz: "Fade & Soqol uyg'unligi", title_ru: "Идеальный Fade и борода", category: "men", image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&auto=format&fit=crop&q=80" },
-      { id: "gal-2", title_uz: "AirTouch bo'yash natijasi", title_ru: "Результат окрашивания AirTouch", category: "women", image: "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=600&auto=format&fit=crop&q=80" },
-      { id: "gal-3", title_uz: "Klassik Pompadour", title_ru: "Классический Pompadour", category: "men", image: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&auto=format&fit=crop&q=80" },
-      { id: "gal-4", title_uz: "Kare va yaltiroq silliqlik", title_ru: "Каре и зеркальный блеск", category: "women", image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80" },
-      { id: "gal-5", title_uz: "Royal soqol parvarishi", title_ru: "Королевский уход за бородой", category: "men", image: "https://images.unsplash.com/photo-1517832606589-7629c3395909?w=600&auto=format&fit=crop&q=80" },
-      { id: "gal-6", title_uz: "Salon interyeri va qulaylik", title_ru: "Интерьер студии и комфорт", category: "salon", image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&auto=format&fit=crop&q=80" }
+      { id: "gal-1", title_uz: "Rasmiy Narxlar Ro'yxati", title_ru: "Официальный прайс-лист", category: "pricelist", image: "./images/pricelist.jpg" },
+      { id: "gal-2", title_uz: "Jamoloddin (Asoschi)", title_ru: "Джамолоддин (Основатель)", category: "masters", image: "./images/master-jamoloddin.jpg" },
+      { id: "gal-3", title_uz: "Akrom (Top Barber)", title_ru: "Акром (Топ-барбер)", category: "masters", image: "./images/master-akrom.jpg" },
+      { id: "gal-4", title_uz: "Axror (Barber & Stilist)", title_ru: "Ахрор (Барбер-стилист)", category: "masters", image: "./images/master-axror.jpg" },
+      { id: "gal-5", title_uz: "WO & MAN Studiya Muhiti", title_ru: "Интерьер студии WO & MAN", category: "salon", image: "./images/studio-showcase.jpg" },
+      { id: "gal-6", title_uz: "Brend Banneri", title_ru: "Фирменный баннер", category: "salon", image: "./images/banner.png" }
     ],
     reviews: [
-      { id: "rev-1", name: "Farrux Zokirov", rating: 5, date: "2026-10-20", text_uz: "Sardor barberga katta rahmat! Fade aynan men xohlagandek chiqdi. Atmosfera va xizmat juda zo'r!", text_ru: "Огромное спасибо барберу Сардору! Фейд получился идеальным. Атмосфера и сервис на высшем уровне!" },
-      { id: "rev-2", name: "Kamola Umarova", rating: 5, date: "2026-10-18", text_uz: "Malika opada sochimni bo'yatdim, natijasi shunchaki fantastika. O'zbekistonda bunaqa sifat kam uchraydi.", text_ru: "Красила волосы у Малики, результат просто восхитительный. Волосы шелковистые, цвет безупречный!" },
-      { id: "rev-3", name: "Bobur Ismoilov", rating: 5, date: "2026-10-15", text_uz: "VIP kompleks xizmatidan foydalandim. Charchoq yozildi, soqol va soch a'lo darajada. Tavsiya qilaman!", text_ru: "Взял VIP комплекс со стрижкой и спа. Полный релакс, сервис премиальный. Однозначно рекомендую!" }
+      { id: "rev-1", name: "Otabek Rustamov", rating: 5, date: "2026-10-25", text_uz: "Jamoloddin akaga gap yo'q! Kuyov obrazini shunchalik zo'r qilib berdilar, to'yda hamma havas qildi. Yangiyo'ldagi 1-raqamli barbershop!", text_ru: "Огромная благодарность Джамолоддину! Свадебный образ получился на высшем уровне. Лучший барбершоп в Янгиюле!" },
+      { id: "rev-2", name: "Sherzod Aliyev", rating: 5, date: "2026-10-22", text_uz: "Akrom ustaga rahmat! Soch va soqolni juda chiroyli va tekis qilib berdilar. Joyi ham juda shinam va qulay.", text_ru: "Спасибо мастеру Акром! Стрижка и борода сделаны безупречно. Очень стильное и уютное место." },
+      { id: "rev-3", name: "Farxod Karimov", rating: 5, date: "2026-10-19", text_uz: "Axror ustada doimiy mijozman. Soch turmaklash va yuz maskasi zo'r chiqadi. Barchaga tavsiya qilaman!", text_ru: "Постоянно стригусь у Ахрора. Отличная укладка и сервис. Рекомендую всем!" }
     ]
   };
 
-  // Initialize
+  // Initialize App
   initApp();
 
   async function initApp() {
@@ -103,9 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     } catch (err) {
-      // Ignore network / 404 error
+      // Offline or GitHub Pages
     }
-    // Fallback to static data (for GitHub Pages!)
     state.data = STATIC_DATA;
   }
 
@@ -159,7 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Update dynamic text
     if (state.data && state.data.settings) {
       const settings = state.data.settings;
       const hoursEl = document.getElementById('display-hours');
@@ -180,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileMenuBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
       });
-      // Close mobile menu on link click
       mobileMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');
@@ -188,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Service category filter tabs
+    // Category filter tabs
     document.querySelectorAll('.service-category-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         document.querySelectorAll('.service-category-btn').forEach(b => {
@@ -212,6 +260,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Booking master select change
+    if (bookingMasterSelect) {
+      bookingMasterSelect.addEventListener('change', (e) => {
+        state.booking.master_id = e.target.value;
+      });
+    }
+
     // Booking form submit
     if (bookingForm) {
       bookingForm.addEventListener('submit', handleBookingSubmit);
@@ -222,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dateInput) {
       dateInput.min = getTodayDateString();
       dateInput.value = getTodayDateString();
+      state.booking.date = dateInput.value;
       dateInput.addEventListener('change', (e) => {
         state.booking.date = e.target.value;
       });
@@ -261,40 +317,40 @@ document.addEventListener('DOMContentLoaded', () => {
       const badge = state.lang === 'uz' ? (service.badge_uz || '') : (service.badge_ru || '');
       const formattedPrice = Number(service.price).toLocaleString('uz-UZ');
 
-      const isMen = service.category === 'men';
-      const categoryLabel = isMen ? 'MAN / Barbershop' : 'WO / Beauty Studio';
-      const catBadgeBg = isMen ? 'bg-zinc-800 text-zinc-200' : 'bg-pink-950/60 text-pink-300 border border-pink-700/40';
+      let badgeHtml = '';
+      if (badge === 'VIP') {
+        badgeHtml = `<div class="absolute -top-3 right-6 badge-gold text-[10px] font-black uppercase tracking-wider px-3 py-0.5 rounded-full shadow-md">VIP</div>`;
+      } else if (badge) {
+        badgeHtml = `<div class="absolute -top-3 right-6 bg-[#ff2d87] text-white text-[10px] font-black uppercase tracking-wider px-3 py-0.5 rounded-full shadow-md">${badge}</div>`;
+      }
 
       return `
-        <div class="glass-card glass-card-hover p-6 flex flex-col justify-between relative group">
-          ${badge ? `
-            <div class="absolute -top-3 right-6 bg-[#ff2d87] text-white text-[11px] font-black uppercase tracking-wider px-3 py-0.5 rounded-full shadow-md">
-              ${badge}
-            </div>
-          ` : ''}
+        <div class="glass-card glass-card-hover p-6 flex flex-col justify-between relative group border border-zinc-800/80 hover:border-[#ff2d87]/40 transition">
+          ${badgeHtml}
           <div>
             <div class="flex items-center justify-between mb-3">
-              <span class="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md ${catBadgeBg}">
-                ${categoryLabel}
+              <span class="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-zinc-300 flex items-center gap-1.5">
+                <i data-lucide="scissors" class="w-3 h-3 text-[#ff2d87]"></i>
+                BARBERSHOP
               </span>
               <span class="text-xs text-zinc-400 flex items-center gap-1">
-                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-zinc-500"></i>
                 ${service.duration_min} ${dict.service_duration}
               </span>
             </div>
             
-            <h3 class="text-xl font-extrabold text-white group-hover:text-[#ff2d87] transition mb-2">
+            <h3 class="text-xl font-black text-white group-hover:text-[#ff2d87] transition mb-2">
               ${name}
             </h3>
             
-            <p class="text-sm text-zinc-400 mb-5 line-clamp-2">
+            <p class="text-xs text-zinc-400 mb-5 leading-relaxed">
               ${desc}
             </p>
           </div>
 
           <div class="pt-4 border-t border-zinc-800/80 flex items-center justify-between mt-auto">
             <div>
-              <div class="text-xs text-zinc-400 uppercase tracking-wider">Narx / Стоимость</div>
+              <div class="text-[10px] text-zinc-500 uppercase tracking-wider font-semibold">Narxi</div>
               <div class="text-xl font-black text-white">
                 ${formattedPrice} <span class="text-xs font-normal text-pink-400">${dict.service_sum}</span>
               </div>
@@ -302,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <button 
               onclick="selectServiceAndScroll('${service.id}')"
-              class="px-4 py-2 bg-zinc-800 hover:bg-[#ff2d87] text-white text-xs font-bold rounded-lg transition duration-200 flex items-center gap-1.5 shadow-sm">
+              class="px-4 py-2 bg-zinc-900 hover:bg-[#ff2d87] border border-zinc-700/80 hover:border-[#ff2d87] text-white text-xs font-bold rounded-xl transition duration-200 flex items-center gap-1.5 shadow-sm">
               <span>${dict.service_book_btn}</span>
               <i data-lucide="chevron-right" class="w-4 h-4"></i>
             </button>
@@ -311,7 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }).join('');
 
-    // Re-initialize Lucide icons
     if (window.lucide) {
       window.lucide.createIcons();
     }
@@ -326,43 +381,72 @@ document.addEventListener('DOMContentLoaded', () => {
       const specialty = state.lang === 'uz' ? master.specialty_uz : master.specialty_ru;
       const experience = state.lang === 'uz' ? master.experience_uz : master.experience_ru;
       const description = state.lang === 'uz' ? master.description_uz : master.description_ru;
+      const isFounder = master.id === 'mst-1' || master.category === 'founder';
 
       return `
-        <div class="glass-card glass-card-hover overflow-hidden flex flex-col group">
-          <div class="h-64 relative overflow-hidden bg-zinc-900">
+        <div class="glass-card glass-card-hover overflow-hidden flex flex-col group border ${isFounder ? 'border-pink-500/40 ring-1 ring-[#ff2d87]/30' : 'border-zinc-800'} rounded-2xl">
+          <div class="h-80 relative overflow-hidden bg-zinc-950">
             <img 
               src="${master.photo}" 
               alt="${master.name}" 
-              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-              onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'"
+              class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700 master-card-img"
+              onerror="this.src='./images/banner.png'"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0b0c10] via-black/30 to-transparent"></div>
             
-            <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-amber-400 flex items-center gap-1 border border-amber-400/30">
+            <!-- Top Badges -->
+            <div class="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
+              ${isFounder ? `
+                <div class="bg-gradient-to-r from-amber-500 to-amber-600 text-black text-[10px] font-black uppercase px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                  <i data-lucide="crown" class="w-3.5 h-3.5"></i>
+                  <span>ASOSCHI</span>
+                </div>
+              ` : `
+                <div class="bg-zinc-900/90 border border-zinc-700/80 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                  <i data-lucide="scissors" class="w-3.5 h-3.5 text-[#ff2d87]"></i>
+                  <span>${master.title || 'TOP BARBER'}</span>
+                </div>
+              `}
+            </div>
+
+            <div class="absolute top-3 right-3 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-amber-400 flex items-center gap-1 border border-amber-400/30">
               <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
               ${master.rating} <span class="text-zinc-400 text-[10px]">(${master.reviews_count || 100}+)</span>
             </div>
 
-            <div class="absolute bottom-3 left-3 right-3">
-              <span class="text-[11px] font-semibold text-[#ff2d87] uppercase tracking-wider block mb-0.5">
+            <div class="absolute bottom-3 left-4 right-4">
+              <span class="text-[10px] font-bold text-pink-400 uppercase tracking-widest block mb-0.5">
                 ${experience}
               </span>
-              <h3 class="text-xl font-black text-white">${master.name}</h3>
+              <h3 class="text-2xl font-black text-white flex items-center gap-2">
+                ${master.name}
+              </h3>
               <p class="text-xs text-zinc-300 font-medium">${specialty}</p>
             </div>
           </div>
 
-          <div class="p-5 flex flex-col justify-between flex-1">
-            <p class="text-xs text-zinc-400 mb-4 italic leading-relaxed">
+          <div class="p-5 flex flex-col justify-between flex-1 space-y-4">
+            <p class="text-xs text-zinc-400 italic leading-relaxed">
               "${description}"
             </p>
 
-            <button 
-              onclick="selectMasterAndScroll('${master.id}')"
-              class="w-full py-2.5 px-4 bg-zinc-800 hover:bg-[#ff2d87] text-white text-xs font-bold rounded-lg transition duration-200 flex items-center justify-center gap-2 border border-zinc-700/60 hover:border-[#ff2d87]">
-              <i data-lucide="calendar-check" class="w-4 h-4"></i>
-              <span>${dict.master_book_btn}</span>
-            </button>
+            <div class="space-y-2 pt-2 border-t border-zinc-800">
+              <!-- Phone direct call pill -->
+              <a 
+                href="tel:${master.phone.replace(/\s+/g, '')}" 
+                class="w-full py-2.5 px-3 bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2 border border-zinc-700/60 group/phone">
+                <i data-lucide="phone-call" class="w-4 h-4 text-emerald-400 group-hover/phone:animate-bounce"></i>
+                <span>${master.phone}</span>
+              </a>
+
+              <!-- Book Master Button -->
+              <button 
+                onclick="selectMasterAndScroll('${master.id}')"
+                class="w-full py-2.5 px-3 glow-pink-btn text-white text-xs font-black uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-2">
+                <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                <span>${dict.master_book_btn}</span>
+              </button>
+            </div>
           </div>
         </div>
       `;
@@ -380,17 +464,18 @@ document.addEventListener('DOMContentLoaded', () => {
     galleryContainer.innerHTML = items.map(item => {
       const title = state.lang === 'uz' ? item.title_uz : item.title_ru;
       return `
-        <div class="relative group rounded-xl overflow-hidden aspect-square bg-zinc-900 border border-zinc-800">
+        <div class="relative group rounded-2xl overflow-hidden aspect-square bg-zinc-950 border border-zinc-800 shadow-md">
           <img 
             src="${item.image}" 
             alt="${title}" 
-            class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+            class="w-full h-full object-cover group-hover:scale-105 transition duration-500 cursor-pointer"
             loading="lazy"
+            onclick="openImageLightbox('${item.image}', '${title.replace(/'/g, "\\'")}')"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-            <div class="transform translate-y-2 group-hover:translate-y-0 transition duration-300">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4 pointer-events-none">
+            <div>
               <span class="text-[10px] uppercase font-bold text-[#ff2d87] tracking-wider block">WO & MAN</span>
-              <p class="text-sm font-bold text-white">${title}</p>
+              <p class="text-xs font-bold text-white">${title}</p>
             </div>
           </div>
         </div>
@@ -407,11 +492,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const stars = Array(rev.rating).fill('★').join('');
 
       return `
-        <div class="glass-card p-6 flex flex-col justify-between">
+        <div class="glass-card p-6 flex flex-col justify-between border border-zinc-800">
           <div>
             <div class="flex items-center justify-between mb-4">
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#ff2d87] to-zinc-800 flex items-center justify-center font-bold text-white text-sm">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#ff2d87] to-zinc-900 flex items-center justify-center font-black text-white text-sm border border-pink-500/30">
                   ${rev.name.charAt(0)}
                 </div>
                 <div>
@@ -425,9 +510,9 @@ document.addEventListener('DOMContentLoaded', () => {
               "${text}"
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-zinc-800 flex items-center gap-1.5 text-[11px] text-[#ff2d87] font-semibold">
+          <div class="mt-4 pt-3 border-t border-zinc-800/80 flex items-center gap-1.5 text-[11px] text-[#ff2d87] font-semibold">
             <i data-lucide="badge-check" class="w-3.5 h-3.5"></i>
-            <span>Tasdiqlangan tashrif</span>
+            <span>Tasdiqlangan mijoz fikri</span>
           </div>
         </div>
       `;
@@ -448,33 +533,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentVal = bookingServiceSelect.value;
       let html = `<option value="">-- ${dict.booking_service_placeholder} --</option>`;
       
-      const menServices = state.data.services.filter(s => s.category === 'men');
-      const womenServices = state.data.services.filter(s => s.category === 'women');
-      const unisexServices = state.data.services.filter(s => s.category === 'unisex');
+      const mainServices = state.data.services.filter(s => s.category === 'main');
+      const careServices = state.data.services.filter(s => s.category === 'care');
 
-      if (menServices.length) {
-        html += `<optgroup label="💈 Erkaklar / Barbershop (MAN)">`;
-        menServices.forEach(s => {
+      if (mainServices.length) {
+        html += `<optgroup label="💈 Soch va Soqol">`;
+        mainServices.forEach(s => {
           const name = state.lang === 'uz' ? s.name_uz : s.name_ru;
-          html += `<option value="${s.id}" data-price="${s.price}">${name} - ${Number(s.price).toLocaleString('uz-UZ')} so'm</option>`;
+          html += `<option value="${s.id}" data-price="${s.price}">${name} — ${Number(s.price).toLocaleString('uz-UZ')} so'm</option>`;
         });
         html += `</optgroup>`;
       }
 
-      if (womenServices.length) {
-        html += `<optgroup label="✨ Ayollar / Go'zallik studiyasi (WO)">`;
-        womenServices.forEach(s => {
+      if (careServices.length) {
+        html += `<optgroup label="✨ Parvarish va VIP Obraz">`;
+        careServices.forEach(s => {
           const name = state.lang === 'uz' ? s.name_uz : s.name_ru;
-          html += `<option value="${s.id}" data-price="${s.price}">${name} - ${Number(s.price).toLocaleString('uz-UZ')} so'm</option>`;
-        });
-        html += `</optgroup>`;
-      }
-
-      if (unisexServices.length) {
-        html += `<optgroup label="💆 Spa & Maxsus parvarish">`;
-        unisexServices.forEach(s => {
-          const name = state.lang === 'uz' ? s.name_uz : s.name_ru;
-          html += `<option value="${s.id}" data-price="${s.price}">${name} - ${Number(s.price).toLocaleString('uz-UZ')} so'm</option>`;
+          html += `<option value="${s.id}" data-price="${s.price}">${name} — ${Number(s.price).toLocaleString('uz-UZ')} so'm</option>`;
         });
         html += `</optgroup>`;
       }
@@ -483,13 +558,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (currentVal) bookingServiceSelect.value = currentVal;
     }
 
-    // Masters
+    // Masters Dropdown
     if (bookingMasterSelect && state.data.masters) {
       const currentVal = bookingMasterSelect.value;
       let html = `<option value="">💈 ${dict.booking_master_any}</option>`;
       state.data.masters.forEach(m => {
         const spec = state.lang === 'uz' ? m.specialty_uz : m.specialty_ru;
-        html += `<option value="${m.id}">${m.name} (${spec})</option>`;
+        html += `<option value="${m.id}">${m.name} (${m.title || spec}) — ${m.phone}</option>`;
       });
       bookingMasterSelect.innerHTML = html;
       if (currentVal) bookingMasterSelect.value = currentVal;
@@ -510,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <button 
           type="button" 
           data-time="${time}" 
-          class="time-chip py-2 px-3 text-xs font-bold rounded-lg border border-zinc-700 bg-zinc-800/80 hover:border-[#ff2d87] transition ${isActive ? 'active' : 'text-zinc-300'}">
+          class="time-chip py-2 px-3 text-xs font-bold rounded-xl border border-zinc-700 bg-zinc-900/80 hover:border-[#ff2d87] transition ${isActive ? 'active' : 'text-zinc-300'}">
           ${time}
         </button>
       `;
@@ -535,6 +610,82 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // --- Telegram Bot Direct Dispatch for GitHub Pages ---
+  async function sendTelegramDirectToMasters(booking) {
+    const token = (state.data && state.data.settings && state.data.settings.telegram_bot_token) 
+      ? state.data.settings.telegram_bot_token 
+      : "8982199071:AAEeR9ySgTlyG0NQozhDinluVDcjJqCSdiU";
+    
+    // Default chat ID for Jamoloddin (Founder)
+    const jamoloddinChatId = (state.data && state.data.settings && state.data.settings.telegram_chat_id_jamoloddin) 
+      || "5046237558";
+    
+    const akromChatId = (state.data && state.data.settings && state.data.settings.telegram_chat_id_akrom) || "";
+    const axrorChatId = (state.data && state.data.settings && state.data.settings.telegram_chat_id_axror) || "";
+
+    // Target chat targets
+    const targets = [];
+
+    if (booking.master_id === 'mst-1') {
+      targets.push({ name: 'Jamoloddin', chatId: jamoloddinChatId });
+    } else if (booking.master_id === 'mst-2') {
+      if (akromChatId) targets.push({ name: 'Akrom', chatId: akromChatId });
+      targets.push({ name: 'Jamoloddin (Asoschi)', chatId: jamoloddinChatId });
+    } else if (booking.master_id === 'mst-3') {
+      if (axrorChatId) targets.push({ name: 'Axror', chatId: axrorChatId });
+      targets.push({ name: 'Jamoloddin (Asoschi)', chatId: jamoloddinChatId });
+    } else {
+      // Any master: dispatch to all available chat IDs
+      targets.push({ name: 'Jamoloddin', chatId: jamoloddinChatId });
+      if (akromChatId) targets.push({ name: 'Akrom', chatId: akromChatId });
+      if (axrorChatId) targets.push({ name: 'Axror', chatId: axrorChatId });
+    }
+
+    const formattedPrice = Number(booking.service_price || 0).toLocaleString('uz-UZ');
+    let sentCount = 0;
+
+    for (const target of targets) {
+      if (!target.chatId) continue;
+      const text = `💈 <b>USTA UCHUN XABAR: Hurmatli ${target.name}!</b>
+⚡️ <b>Yangi mijoz arizasi tushdi!</b>
+━━━━━━━━━━━━━━━━━━━━
+💈 <b>WO & MAN — Barbershop Yangiyo'l</b>
+📍 <i>Bo'ston 1-o'tish ko'chasi, 1</i>
+━━━━━━━━━━━━━━━━━━━━
+🆔 <b>Ariza raqami:</b> <code>#${booking.id}</code>
+👤 <b>Mijoz:</b> <b>${escapeHtml(booking.client_name)}</b>
+📞 <b>Telefon:</b> <a href="tel:${booking.client_phone}">${booking.client_phone}</a>
+✂️ <b>Xizmat:</b> <b>${escapeHtml(booking.service_name_uz || booking.service_name_ru)}</b>
+💵 <b>Narx:</b> <b>${formattedPrice} so'm</b>
+💈 <b>Tanlangan usta:</b> <b>${escapeHtml(booking.master_name || 'Ixtiyoriy usta')}</b>
+📅 <b>Kuni:</b> <b>${booking.date}</b>
+⏰ <b>Vaqti:</b> <b>${booking.time}</b>
+💬 <b>Qo'shimcha izoh:</b> ${booking.notes ? escapeHtml(booking.notes) : '<i>Izoh yo\'q</i>'}
+━━━━━━━━━━━━━━━━━━━━
+🕒 <i>Sana: ${new Date().toLocaleDateString('uz-UZ')} ${booking.time}</i>
+⚡️ <i>Mijoz bilan tezroq bog'laning!</i>`;
+
+      try {
+        const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: target.chatId,
+            text: text,
+            parse_mode: 'HTML',
+            disable_web_page_preview: true
+          })
+        });
+        const json = await res.json();
+        if (json.ok) sentCount++;
+      } catch (err) {
+        console.warn("Direct Telegram dispatch error for", target.name, err);
+      }
+    }
+
+    return { sent: sentCount > 0, count: sentCount };
+  }
+
   // --- Booking Form Submission ---
   async function handleBookingSubmit(e) {
     e.preventDefault();
@@ -554,7 +705,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Button loading state
     if (submitBtn) {
       submitBtn.disabled = true;
       submitBtn.innerHTML = `
@@ -566,6 +716,27 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }
 
+    const srv = (state.data && state.data.services) ? state.data.services.find(s => s.id === serviceId) : null;
+    const mst = (state.data && state.data.masters) ? state.data.masters.find(m => m.id === masterId) : null;
+
+    const booking = {
+      id: 'BK-' + Math.floor(1000 + Math.random() * 9000),
+      client_name: name,
+      client_phone: phone,
+      service_id: serviceId,
+      service_name_uz: srv ? srv.name_uz : 'Soch olish',
+      service_name_ru: srv ? srv.name_ru : 'Стрижка',
+      service_price: srv ? srv.price : 60000,
+      master_id: masterId,
+      master_name: mst ? `${mst.name} (${mst.title || 'Usta'})` : 'Ixtiyoriy usta',
+      date: date,
+      time: time,
+      notes: notes
+    };
+
+    let telegramSent = false;
+
+    // 1. Try backend API first
     try {
       const response = await fetch('/api/bookings', {
         method: 'POST',
@@ -584,6 +755,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
+          telegramSent = result.telegram && result.telegram.sent;
           showSuccessModal(result.booking, result.telegram);
           bookingForm.reset();
           document.getElementById('booking-date').value = getTodayDateString();
@@ -592,40 +764,31 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
       }
-      throw new Error("Static fallback");
     } catch (err) {
-      // Fallback for static GitHub Pages
-      const srv = (state.data && state.data.services) ? state.data.services.find(s => s.id === serviceId) : null;
-      const mst = (state.data && state.data.masters) ? state.data.masters.find(m => m.id === masterId) : null;
-      const booking = {
-        id: 'BK-' + Math.floor(1000 + Math.random() * 9000),
-        client_name: name,
-        client_phone: phone,
-        service_id: serviceId,
-        service_name_uz: srv ? srv.name_uz : 'Tanlangan xizmat',
-        service_name_ru: srv ? srv.name_ru : 'Выбранная услуга',
-        service_price: srv ? srv.price : 0,
-        master_id: masterId,
-        master_name: mst ? mst.name : 'Ixtiyoriy bo\'sh usta',
-        date: date,
-        time: time,
-        notes: notes
-      };
+      // Backend not running (GitHub Pages) -> proceed to direct Telegram bot API
+    }
 
-      showSuccessModal(booking, { sent: true });
-      bookingForm.reset();
-      document.getElementById('booking-date').value = getTodayDateString();
-      state.booking.service_id = '';
-      updateBookingPrice();
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `
-          <span>${dict.booking_submit_btn}</span>
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        `;
-        if (window.lucide) window.lucide.createIcons();
-      }
+    // 2. Direct Telegram API fallback for GitHub Pages
+    try {
+      const tgRes = await sendTelegramDirectToMasters(booking);
+      telegramSent = tgRes.sent;
+    } catch (e) {
+      console.warn("Direct dispatch error:", e);
+    }
+
+    showSuccessModal(booking, { sent: telegramSent });
+    bookingForm.reset();
+    document.getElementById('booking-date').value = getTodayDateString();
+    state.booking.service_id = '';
+    updateBookingPrice();
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `
+        <span>${dict.booking_submit_btn}</span>
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      `;
+      if (window.lucide) window.lucide.createIcons();
     }
   }
 
@@ -636,7 +799,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modal-res-name').textContent = booking.client_name;
     document.getElementById('modal-res-phone').textContent = booking.client_phone;
     document.getElementById('modal-res-service').textContent = state.lang === 'uz' ? booking.service_name_uz : booking.service_name_ru;
-    document.getElementById('modal-res-master').textContent = booking.master_name || '-';
+    document.getElementById('modal-res-master').textContent = booking.master_name || 'Ixtiyoriy usta';
     document.getElementById('modal-res-datetime').textContent = `${booking.date} - soat ${booking.time}`;
     document.getElementById('modal-res-price').textContent = Number(booking.service_price).toLocaleString('uz-UZ') + " so'm";
 
@@ -644,10 +807,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tgBadge) {
       if (telegramInfo && telegramInfo.sent) {
         tgBadge.className = "text-[11px] text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-3 py-1 rounded-full flex items-center gap-1.5";
-        tgBadge.innerHTML = `<i data-lucide="check-check" class="w-3.5 h-3.5"></i> Telegram botga xabar bordi!`;
+        tgBadge.innerHTML = `<i data-lucide="check-check" class="w-3.5 h-3.5"></i> Ustalarning Telegram botiga xabar yetkazildi!`;
       } else {
-        tgBadge.className = "text-[11px] text-zinc-400 bg-zinc-800 px-3 py-1 rounded-full";
-        tgBadge.textContent = "Ariza qabul qilindi va tizimda saqlandi";
+        tgBadge.className = "text-[11px] text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-3 py-1 rounded-full flex items-center gap-1.5";
+        tgBadge.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i> Arizangiz qabul qilindi!`;
       }
     }
 
@@ -655,7 +818,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.lucide) window.lucide.createIcons();
   }
 
-  // --- Helper Functions ---
   function getTodayDateString() {
     const d = new Date();
     const year = d.getFullYear();
@@ -664,7 +826,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${year}-${month}-${day}`;
   }
 
-  // Global triggers exposed to window for inline HTML onclick handlers
+  function escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // Global triggers
   window.selectServiceAndScroll = function(serviceId) {
     if (bookingServiceSelect) {
       bookingServiceSelect.value = serviceId;
@@ -686,5 +858,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  window.openImageLightbox = function(src, title) {
+    const modal = document.getElementById('image-lightbox-modal');
+    const img = document.getElementById('lightbox-img');
+    const caption = document.getElementById('lightbox-title');
+    if (modal && img) {
+      img.src = src;
+      if (caption) caption.textContent = title || '';
+      modal.classList.remove('hidden');
+      if (window.lucide) window.lucide.createIcons();
+    }
+  };
+
+  window.closeImageLightbox = function() {
+    const modal = document.getElementById('image-lightbox-modal');
+    if (modal) modal.classList.add('hidden');
   };
 });

@@ -104,7 +104,7 @@ body {
   background: linear-gradient(90deg, transparent 0%, var(--wo-pink) 30%, #ffffff 70%, transparent 100%);
 }
 
-/* Barber Pole animated striped accent */
+/* Barber Pole animated striped accent - Smooth & slow luxury animation */
 .barber-pole-line {
   height: 4px;
   background: repeating-linear-gradient(
@@ -117,7 +117,8 @@ body {
     #0284c7 45px
   );
   background-size: 200% 200%;
-  animation: barberPoleAnim 4s linear infinite;
+  animation: barberPoleAnim 22s linear infinite;
+  box-shadow: 0 0 12px rgba(255, 45, 135, 0.35);
 }
 
 @keyframes barberPoleAnim {
@@ -185,4 +186,26 @@ body {
 
 .pulse-dot {
   animation: pulseDot 2s infinite ease-in-out;
+}
+
+/* Gold badge accent */
+.badge-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #aa8010 100%);
+  color: #000000;
+  font-weight: 900;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+}
+
+/* Master card portrait aspect ratio and polish */
+.master-card-img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+/* Smooth modal transitions */
+.modal-overlay {
+  background: rgba(4, 5, 8, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
