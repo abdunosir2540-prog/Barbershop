@@ -1,0 +1,211 @@
+/* WO & MAN Barber & Beauty Studio Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Syne:wght@700;800;900&display=swap');
+
+:root {
+  --wo-pink: #ff2d87;
+  --wo-pink-glow: rgba(255, 45, 135, 0.45);
+  --man-white: #ffffff;
+  --dark-bg: #0b0c10;
+  --dark-surface: #14161d;
+  --dark-surface-2: #1c1e28;
+  --dark-border: #262938;
+  --accent-gold: #d4af37;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--dark-bg);
+  color: #e2e8f0;
+  overflow-x: hidden;
+}
+
+/* Brand Signboard Typography - Inspired directly by banner */
+.brand-wo {
+  color: var(--wo-pink);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 20px var(--wo-pink-glow), 0 0 40px rgba(255, 45, 135, 0.2);
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.brand-amp {
+  color: #94a3b8;
+  font-weight: 700;
+  margin: 0 0.15em;
+  opacity: 0.85;
+}
+
+.brand-man {
+  color: var(--man-white);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.35);
+  display: inline-block;
+}
+
+.brand-sub {
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-transform: uppercase;
+}
+
+/* Glowing Neon Elements */
+.glow-pink-btn {
+  background: linear-gradient(135deg, #ff2d87 0%, #d81b60 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 20px var(--wo-pink-glow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-pink-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 45, 135, 0.65);
+}
+
+.glow-white-btn {
+  background: #ffffff;
+  color: #0b0c10;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
+  transition: all 0.3s ease;
+}
+
+.glow-white-btn:hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.45);
+}
+
+/* Banner Signboard Replica Box */
+.banner-replica-box {
+  background: #111317;
+  border: 1px solid #232733;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-replica-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--wo-pink) 30%, #ffffff 70%, transparent 100%);
+}
+
+/* Barber Pole animated striped accent - Smooth & slow luxury animation */
+.barber-pole-line {
+  height: 4px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #ff2d87,
+    #ff2d87 15px,
+    #ffffff 15px,
+    #ffffff 30px,
+    #0284c7 30px,
+    #0284c7 45px
+  );
+  background-size: 200% 200%;
+  animation: barberPoleAnim 22s linear infinite;
+  box-shadow: 0 0 12px rgba(255, 45, 135, 0.35);
+}
+
+@keyframes barberPoleAnim {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(20, 22, 29, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 45, 135, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 45, 135, 0.15);
+}
+
+/* Time chip active */
+.time-chip.active {
+  background-color: var(--wo-pink);
+  color: #ffffff;
+  border-color: var(--wo-pink);
+  box-shadow: 0 0 15px var(--wo-pink-glow);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0c10;
+}
+::-webkit-scrollbar-thumb {
+  background: #262938;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wo-pink);
+}
+
+/* Smooth fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Pulse badge animation */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.pulse-dot {
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+/* Gold badge accent */
+.badge-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #aa8010 100%);
+  color: #000000;
+  font-weight: 900;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+}
+
+/* Master card portrait aspect ratio and polish */
+.master-card-img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+/* Smooth modal transitions */
+.modal-overlay {
+  background: rgba(4, 5, 8, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
