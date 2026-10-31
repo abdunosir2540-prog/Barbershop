@@ -8,8 +8,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Fonts -->
-  <link rel="stylesheet" href="/css/style.css">
+  <!-- Fonts & Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="bg-[#0b0c10] text-slate-100 min-h-screen">
 
@@ -313,22 +313,79 @@
                 </div>
               </div>
 
-              <div>
-                <div class="flex items-center justify-between mb-1">
-                  <label class="block text-xs font-bold text-zinc-300 uppercase">
-                    Telegram Chat ID (Shaxsiy yoki Guruh ID)
-                  </label>
-                  <button type="button" id="auto-detect-chat-btn" class="text-[11px] font-bold text-[#ff2d87] hover:underline flex items-center gap-1">
-                    <i data-lucide="zap" class="w-3.5 h-3.5"></i>
-                    <span>Chat ID ni avtomatik aniqlash</span>
-                  </button>
+              <!-- Masters Individual Telegram Chat IDs -->
+              <div class="space-y-4 pt-2 border-t border-zinc-800">
+                <h4 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="users" class="w-4 h-4"></i>
+                  <span>Uchala Ustaning Shaxsiy Telegram Chat ID Raqamlari</span>
+                </h4>
+                <p class="text-[11px] text-zinc-400">
+                  Saytdan tushgan arizalar har bir ustaga alohida xabar sifatida borishi uchun ularning Telegram Chat ID raqamlarini kiriting.
+                </p>
+
+                <!-- Jamoloddin (Founder) -->
+                <div class="p-3 bg-zinc-900/80 rounded-xl border border-zinc-800">
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-xs font-bold text-amber-300">
+                      👑 1. Jamoloddin (Asoschi) — +998 97 977 59 94
+                    </label>
+                  </div>
+                  <input 
+                    type="text" 
+                    id="setting-chat-id-jamoloddin" 
+                    placeholder="Masalan: 5046237558"
+                    class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-[#ff2d87]"
+                  />
                 </div>
-                <input 
-                  type="text" 
-                  id="setting-chat-id" 
-                  placeholder="Masalan: 58493021 yoki -100123456789"
-                  class="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-700 rounded-xl text-sm font-mono text-white focus:outline-none focus:border-[#229ed9]"
-                />
+
+                <!-- Akrom -->
+                <div class="p-3 bg-zinc-900/80 rounded-xl border border-zinc-800">
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-xs font-bold text-zinc-200">
+                      ✂️ 2. Akrom (Top Barber) — +998 97 548 77 97
+                    </label>
+                  </div>
+                  <input 
+                    type="text" 
+                    id="setting-chat-id-akrom" 
+                    placeholder="Akromning Telegram Chat ID raqami..."
+                    class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-[#ff2d87]"
+                  />
+                </div>
+
+                <!-- Axror -->
+                <div class="p-3 bg-zinc-900/80 rounded-xl border border-zinc-800">
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-xs font-bold text-zinc-200">
+                      ✂️ 3. Axror (Barber & Stilist) — +998 77 071 78 37
+                    </label>
+                  </div>
+                  <input 
+                    type="text" 
+                    id="setting-chat-id-axror" 
+                    placeholder="Axrorning Telegram Chat ID raqami..."
+                    class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-lg text-xs font-mono text-white focus:outline-none focus:border-[#ff2d87]"
+                  />
+                </div>
+
+                <!-- General Chat ID fallback -->
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="block text-xs font-bold text-zinc-400">
+                      Umumiy / Guruh Chat ID (ixtiyoriy)
+                    </label>
+                    <button type="button" id="auto-detect-chat-btn" class="text-[11px] font-bold text-[#ff2d87] hover:underline flex items-center gap-1">
+                      <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                      <span>Chat ID ni avtomatik aniqlash</span>
+                    </button>
+                  </div>
+                  <input 
+                    type="text" 
+                    id="setting-chat-id" 
+                    placeholder="Masalan: 5046237558"
+                    class="w-full px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-xl text-xs font-mono text-white focus:outline-none focus:border-[#229ed9]"
+                  />
+                </div>
               </div>
 
               <div class="flex items-center gap-2 pt-2">
@@ -488,6 +545,6 @@
   </div>
 
   <!-- Admin logic script -->
-  <script src="/admin/admin.js"></script>
+  <script src="./admin.js"></script>
 </body>
 </html>
